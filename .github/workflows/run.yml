@@ -1,0 +1,41 @@
+name: Run
+
+on:
+  # schedule:
+  #   - cron: '0 */10 * * *' # Every 10 hours (AKA three times a day)
+  push:
+    branches: [ master ]
+
+jobs:
+
+  run:
+    runs-on: ubuntu-latest
+    env:
+      PERGAMUM_LOGIN_URI: https://pergamum.ufam.edu.br/pergamum/biblioteca_s/php/login_usu.php?flag=index.php
+      PERGAMUM_INDEX_URI: https://pergamum.ufam.edu.br/pergamum/biblioteca_s/meu_pergamum/index.php
+      PERGAMUM_LOGIN: ${{ secrets.PERGAMUM_LOGIN }}
+      PERGAMUM_PASSWORD: ${{ secrets.PERGAMUM_PASSWORD }}
+
+    steps:
+    - uses: actions/checkout@v2
+      if: success()
+
+    - uses: actions/setup-node@v1
+      if: success()
+      with:
+        node-version: '12.x'
+    - name: Cache Node.js modules
+      if: success()
+      uses: actions/cache@v1
+      with:
+        path: ~/.npm
+        key: ${{ runner.OS }}-node-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.OS }}-node-
+          ${{ runner.OS }}-
+    - name: Install NPM dependencies (using the lock file)
+      run: npm ci
+
+    - name: Start
+      if: success()
+      run: npm start
