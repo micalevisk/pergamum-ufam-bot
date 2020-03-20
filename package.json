@@ -1,18 +1,25 @@
 {
   "name": "pergamum-ufam-bot",
   "private": true,
-  "version": "1.0.0",
-  "description": ":lock: :guardsman: testando o Puppeteer com Heroku",
-  "main": "index.js",
+  "version": "0.0.1",
+  "description": "",
+  "main": "src/",
   "scripts": {
-    "start": "node ."
+    "start": "node .",
+    "prettier": "prettier --write **/*.js"
   },
   "author": "Micael Levi <mllc@icomp.ufam.edu.br> (micalevisk.github.io)",
   "license": "MIT",
+  "engineStrict": false,
+  "engines": {
+    "node": ">=12.14.0"
+  },
   "dependencies": {
+    "compare-dates": "^2.0.0",
+    "dotenv-safe": "^8.2.0",
     "lodash.zipobject": "^4.1.3",
     "puppeteer": "^2.1.1",
-    "dotenv": "^6.0.0"
+    "require.all": "^2.0.5"
   },
   "devDependencies": {
     "prettier": "^1.19.1"

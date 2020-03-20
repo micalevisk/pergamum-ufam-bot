@@ -1,20 +1,20 @@
 name: Run
 
 on:
-  # schedule:
-  #   - cron: '0 */10 * * *' # Every 10 hours (AKA three times a day)
+  schedule:
+    - cron: '0 0 * * MON' # https://crontab.guru/every-monday
   push:
     branches: [ master ]
 
 jobs:
 
   run:
+    name: Listar e renovar títulos pendentes
     runs-on: ubuntu-latest
     env:
-      PERGAMUM_LOGIN_URI: https://pergamum.ufam.edu.br/pergamum/biblioteca_s/php/login_usu.php?flag=index.php
-      PERGAMUM_INDEX_URI: https://pergamum.ufam.edu.br/pergamum/biblioteca_s/meu_pergamum/index.php
       PERGAMUM_LOGIN: ${{ secrets.PERGAMUM_LOGIN }}
       PERGAMUM_PASSWORD: ${{ secrets.PERGAMUM_PASSWORD }}
+      DEBUG: false
 
     steps:
     - uses: actions/checkout@v2
@@ -34,8 +34,8 @@ jobs:
           ${{ runner.OS }}-node-
           ${{ runner.OS }}-
     - name: Install NPM dependencies (using the lock file)
-      run: npm ci
+      run: npm ci --prod
 
     - name: Start
       if: success()
-      run: npm start
+      run: npm start -- 'getTitulosPendentes | renovarTitulos'
