@@ -22,9 +22,11 @@ const titulosRenovaveis = titulosPendentes => {
       return idxAlmostExp;
     }
 
+    // O Título expirará daqui a `diasMax` dias
     const dateWithOffset = compareDates.subtract(tituloPendente.devolucao, diasMax, 'day');
-    // Título que expirará daqui a `diasMax` dias
-    if (compareDates.isSame(todayDate, dateWithOffset, 'date')) {
+    // O título deve ser renovado se hoje for o dia "máximo" ou se já passou dele mas expirará, no máximo, amanhã, i.e.,
+    // o dia de hoje estiver no intervalo fechado: [hoje - diasMax] ... [diaDevolução - 1 dia]
+    if (compareDates.isBetween(todayDate, dateWithOffset, tituloPendente.devolucao, 'day', '[)')) {
       idxAlmostExp.push(tituloPendente.idx);
     }
 
