@@ -21,7 +21,6 @@ const { lastElementFromArr } = require('./utils');
  */
 function getCredentials() {
   const { PERGAMUM_LOGIN: login, PERGAMUM_PASSWORD: password } = process.env;
-
   return {
     login,
     password,
