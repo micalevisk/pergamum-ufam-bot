@@ -8,12 +8,17 @@
   + [x] retornar o nome do título e se houve sucesso ou falha (com o motivo)
   + [ ] opção de enviar recibo por email para cada tentativa de renovação
 
-
+## Run locally
 ```bash
 npm install
 cp .env.example .env # and setup your credentials in the `.env` file
 DEBUG=true npm start 'signIn | getTitulosPendentes | renovarTitulos'
+#                       \_______________|__________________/
+#                                       |
+#                       a pipeline of 'actions' to perform 
 ```
+
+## Output
 
 Exemplo de saída pro caso de renovação feita:
 ```
