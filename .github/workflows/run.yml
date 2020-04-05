@@ -2,7 +2,7 @@ name: Run
 
 on:
   schedule:
-    - cron: '0 0 * * MON' # https://crontab.guru/every-monday
+    - cron: '0 0 * * */2' # https://crontab.guru/#0_0_*_*_*/2
   push:
     branches: [ master ]
 
