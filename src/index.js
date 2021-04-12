@@ -33,7 +33,7 @@ function getCredentials() {
  * @param {string[]} actionsName
  */
 async function scrap(browser, actionsName) {
-  const page = await browser.newPage();
+  const page = (await browser.pages())[0]; // reusing the first tab that Puppeteer creates.
 
   await page.evaluateOnNewDocument(() => {
     // @ts-ignore
